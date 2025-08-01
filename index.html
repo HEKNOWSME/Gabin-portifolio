@@ -39,6 +39,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="styles/style.css" rel="stylesheet">
     
+
     <script>
         tailwind.config = {
             theme: {
@@ -58,29 +59,20 @@
             }
         }
     </script>
-    <style>
-        .hero-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-        .scroll-smooth {
-            scroll-behavior: smooth;
-        }
-        .project-card {
-            transition: all 0.3s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-        .honeypot {
-            display: none;
-        }
-    </style>
 </head>
 <body class="font-inter bg-white scroll-smooth">
+    <!-- Loading Screen -->
+    <div id="loading" class="loading">
+        <div class="text-center">
+            <div class="spinner mb-4"></div>
+        </div>
+    </div>
+    
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Gallery Image">
+    </div>
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 glass-effect">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -94,13 +86,13 @@
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#home" class="text-dark hover:text-primary transition duration-300">Home</a>
                         <a href="#about" class="text-dark hover:text-primary transition duration-300">About</a>
-                        <a href="#services" class="text-dark hover:text-primary transition duration-300">Services</a>
+                        <a href="#gallery" class="text-dark hover:text-primary transition duration-300">Gallery</a>
                         <a href="#portfolio" class="text-dark hover:text-primary transition duration-300">Portfolio</a>
                         <a href="#contact" class="text-dark hover:text-primary transition duration-300">Contact</a>
+                       
                     </div>
                 </div>
                 
-                <!-- Mobile menu button -->
                 <div class="md:hidden">
                     <button  type="button" id="mobile-menu-btn" class="text-dark hover:text-primary">
                         <i class="fas fa-bars text-xl"></i>
@@ -114,15 +106,19 @@
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
                 <a href="#home" class="block px-3 py-2 text-dark hover:text-primary">Home</a>
                 <a href="#about" class="block px-3 py-2 text-dark hover:text-primary">About</a>
-                <a href="#services" class="block px-3 py-2 text-dark hover:text-primary">Services</a>
+                <a href="#gallery" class="block px-3 py-2 text-dark hover:text-primary">Gallery</a>
                 <a href="#portfolio" class="block px-3 py-2 text-dark hover:text-primary">Portfolio</a>
                 <a href="#contact" class="block px-3 py-2 text-dark hover:text-primary">Contact</a>
+                
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-gradient min-h-screen flex items-center justify-center text-white relative overflow-hidden">
+    <section id="home" class="hero-gradient min-h-screen flex items-center justify-center text-white relative overflow-hidden pdf-section">
+        <!-- Particles Background -->
+        <div class="particles" id="particles"></div>
+        
         <div class="absolute inset-0 bg-black opacity-30"></div>
         
         <!-- Main Content Grid -->
@@ -130,9 +126,9 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
                 
                 <!-- Left Column - Text Content -->
-                <div class="text-center lg:text-left space-y-8">
-                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold font-playfair mb-6 animate-fade-in">
-                        Gabin Shema
+                <div class="text-center lg:text-left space-y-8 fade-in">
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold font-playfair mb-6">
+                        <span class="typewriter">Gabin Shema</span>
                     </h1>
                     <p class="text-xl md:text-2xl lg:text-3xl mb-4 font-light">
                         Graphic & Visual Designer
@@ -142,33 +138,40 @@
                         Transforming ideas into beautiful, functional designs that make an impact.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#portfolio" class="inline-block bg-white text-dark px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition duration-300 shadow-lg">
+                        <a href="#portfolio" class="btn-interactive inline-block bg-white text-dark px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition duration-300 shadow-lg">
                             View My Work
                         </a>
-                        <a href="#contact" class="inline-block border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-dark transition duration-300">
+                        <a href="#contact" class="btn-interactive inline-block border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-dark transition duration-300">
                             Get In Touch
                         </a>
+                      
                     </div>
                     
                     <!-- Stats or Features -->
                     <div class="grid grid-cols-3 gap-4 mt-12 pt-8 border-t border-white border-opacity-20">
                         <div class="text-center lg:text-left">
-                            <div class="text-2xl md:text-3xl font-bold mb-1">50+</div>
+                            <div class="text-2xl md:text-3xl font-bold mb-1">
+                                <span class="counter" data-target="50">0</span>+
+                            </div>
                             <div class="text-sm opacity-80">Projects</div>
                         </div>
                         <div class="text-center lg:text-left">
-                            <div class="text-2xl md:text-3xl font-bold mb-1">5+</div>
+                            <div class="text-2xl md:text-3xl font-bold mb-1">
+                                <span class="counter" data-target="5">0</span>+
+                            </div>
                             <div class="text-sm opacity-80">Years</div>
                         </div>
                         <div class="text-center lg:text-left">
-                            <div class="text-2xl md:text-3xl font-bold mb-1">30+</div>
+                            <div class="text-2xl md:text-3xl font-bold mb-1">
+                                <span class="counter" data-target="30">0</span>+
+                            </div>
                             <div class="text-sm opacity-80">Clients</div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Right Column - Image/Visual -->
-                <div class="relative flex items-center justify-center">
+                <div class="relative flex items-center justify-center fade-in">
                     <!-- Profile Image Container -->
                     <div class="relative w-80 h-80 lg:w-96 lg:h-96 mx-auto">
                         <!-- Main Image -->
@@ -208,13 +211,13 @@
     <!-- About Section -->
     <section id="about" class="py-20 bg-light">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 fade-in">
                 <h2 class="text-4xl md:text-5xl font-bold font-playfair text-dark mb-4">About Me</h2>
                 <div class="w-24 h-1 bg-primary mx-auto"></div>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
+                <div class="space-y-6 fade-in">
                     <h3 class="text-2xl font-semibold text-dark mb-4">
                         Passionate Visual Storyteller
                     </h3>
@@ -231,17 +234,21 @@
                     
                     <div class="grid grid-cols-2 gap-6 mt-8">
                         <div class="text-center p-6 bg-white rounded-lg shadow-md">
-                            <div class="text-3xl font-bold text-primary mb-2">50+</div>
+                            <div class="text-3xl font-bold text-primary mb-2">
+                                <span class="counter" data-target="50">0</span>+
+                            </div>
                             <div class="text-gray-600">Projects Completed</div>
                         </div>
                         <div class="text-center p-6 bg-white rounded-lg shadow-md">
-                            <div class="text-3xl font-bold text-primary mb-2">30+</div>
+                            <div class="text-3xl font-bold text-primary mb-2">
+                                <span class="counter" data-target="30">0</span>+
+                            </div>
                             <div class="text-gray-600">Happy Clients</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="relative">
+                <div class="relative fade-in">
                     <div class="bg-gradient-to-br from-primary to-secondary p-8 rounded-2xl shadow-2xl">
                         <div class="bg-white p-6 rounded-xl">
                             <h4 class="text-xl font-semibold text-dark mb-4">Skills & Expertise</h4>
@@ -252,7 +259,7 @@
                                         <span class="text-sm text-gray-500">95%</span>
                                     </div>
                                     <div class="w-full bg-gray-200 rounded-full h-2">
-                                        <div class="bg-primary h-2 rounded-full" style="width: 95%"></div>
+                                        <div class="bg-primary h-2 rounded-full skill-bar" data-width="95%" style="width: 0%"></div>
                                     </div>
                                 </div>
                                 <div>
@@ -261,7 +268,7 @@
                                         <span class="text-sm text-gray-500">90%</span>
                                     </div>
                                     <div class="w-full bg-gray-200 rounded-full h-2">
-                                        <div class="bg-secondary h-2 rounded-full" style="width: 90%"></div>
+                                        <div class="bg-secondary h-2 rounded-full skill-bar" data-width="90%" style="width: 0%"></div>
                                     </div>
                                 </div>
                                 <div>
@@ -270,7 +277,7 @@
                                         <span class="text-sm text-gray-500">85%</span>
                                     </div>
                                     <div class="w-full bg-gray-200 rounded-full h-2">
-                                        <div class="bg-accent h-2 rounded-full" style="width: 85%"></div>
+                                        <div class="bg-accent h-2 rounded-full skill-bar" data-width="85%" style="width: 0%"></div>
                                     </div>
                                 </div>
                                 <div>
@@ -279,7 +286,7 @@
                                         <span class="text-sm text-gray-500">80%</span>
                                     </div>
                                     <div class="w-full bg-gray-200 rounded-full h-2">
-                                        <div class="bg-primary h-2 rounded-full" style="width: 80%"></div>
+                                        <div class="bg-primary h-2 rounded-full skill-bar" data-width="80%" style="width: 0%"></div>
                                     </div>
                                 </div>
                             </div>
@@ -290,61 +297,214 @@
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-20 bg-white">
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold font-playfair text-dark mb-4">Services</h2>
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold font-playfair text-dark mb-4">Gallery</h2>
                 <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    I offer comprehensive design solutions to help your brand stand out and communicate effectively
+                    Explore my creative journey through this curated collection of design work and inspiration
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Brand Identity -->
-                <div class="bg-light p-8 rounded-2xl hover:shadow-xl transition duration-300 group">
-                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
-                        <i class="fas fa-palette text-white text-2xl"></i>
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 fade-in">
+                <!-- Gallery Images 1-17 -->
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/1.JPG" alt="Design Work 1" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/1.JPG')">
                     </div>
-                    <h3 class="text-2xl font-semibold text-dark mb-4">Brand Identity</h3>
-                    <p class="text-gray-600 mb-6">
-                        Complete brand identity packages including logo design, color palettes, typography, 
-                        and brand guidelines that create lasting impressions.
-                    </p>
-                    <ul class="text-gray-600 space-y-2">
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-2"></i> Logo Design</li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-2"></i> Brand Guidelines</li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-2"></i> Color Schemes</li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-2"></i> Typography</li>
-                    </ul>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
                 </div>
-                
-                <!-- Print Design -->
-                <div class="bg-light p-8 rounded-2xl hover:shadow-xl transition duration-300 group">
-                    <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
-                        <i class="fas fa-print text-white text-2xl"></i>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/2.JPG" alt="Design Work 2" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/2.JPG')">
                     </div>
-                    <h3 class="text-2xl font-semibold text-dark mb-4">Print Design</h3>
-                    <p class="text-gray-600 mb-6">
-                        Professional print materials that communicate your message effectively, from business 
-                        cards to large format displays.
-                    </p>
-                    <ul class="text-gray-600 space-y-2">
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-2"></i> Business Cards</li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-2"></i> Brochures</li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-2"></i> Posters</li>
-                        <li class="flex items-center"><i class="fas fa-check text-accent mr-2"></i> Packaging</li>
-                    </ul>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/3.JPG" alt="Design Work 3" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/3.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/4.JPG" alt="Design Work 4" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/4.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/5.JPG" alt="Design Work 5" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/5.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/6.JPG" alt="Design Work 6" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/6.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/7.JPG" alt="Design Work 7" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/7.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/8.JPG" alt="Design Work 8" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/8.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/9.JPG" alt="Design Work 9" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/9.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/10.JPG" alt="Design Work 10" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/10.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/11.JPG" alt="Design Work 11" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/11.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/12.JPG" alt="Design Work 12" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/12.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/13.JPG" alt="Design Work 13" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/13.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/14.JPG" alt="Design Work 14" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/14.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/15.JPG" alt="Design Work 15" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/15.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/16.JPG" alt="Design Work 16" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/16.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="images/17.JPG" alt="Design Work 17" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" onclick="openLightbox('images/17.JPG')">
+                    </div>
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                        <div class="opacity-0 group-hover:opacity-100 transition duration-300">
+                            <i class="fas fa-search-plus text-white text-2xl"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-20 bg-light">
+    <section id="portfolio" class="py-20 bg-light ">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 fade-in">
                 <h2 class="text-4xl md:text-5xl font-bold font-playfair text-dark mb-4">Portfolio</h2>
                 <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -353,14 +513,14 @@
             </div>
             
             <!-- Portfolio Filter -->
-            <div class="flex flex-wrap justify-center gap-4 mb-12">
-                <button  type="button" class="portfolio-filter active px-6 py-2 bg-primary text-white rounded-full hover:bg-primary-dark transition duration-300" data-filter="all">
+            <div class="flex flex-wrap justify-center gap-4 mb-12 fade-in">
+                <button  type="button" class="portfolio-filter btn-interactive active px-6 py-2 bg-primary text-white rounded-full hover:bg-primary-dark transition duration-300" data-filter="all">
                     All
                 </button>
-                <button  type="button" class="portfolio-filter px-6 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-primary hover:text-white transition duration-300" data-filter="branding">
+                <button  type="button" class="portfolio-filter btn-interactive px-6 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-primary hover:text-white transition duration-300" data-filter="branding">
                     Branding
                 </button>
-                <button  type="button" class="portfolio-filter px-6 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-primary hover:text-white transition duration-300" data-filter="print">
+                <button  type="button" class="portfolio-filter btn-interactive px-6 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-primary hover:text-white transition duration-300" data-filter="print">
                     Print
                 </button>
             </div>
@@ -368,7 +528,7 @@
             <!-- Portfolio Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Project 1 -->
-                <div class="portfolio-item project-card bg-white rounded-2xl shadow-lg overflow-hidden" data-category="branding">
+                <div class="portfolio-item project-card pdf-project-card bg-white rounded-2xl shadow-lg overflow-hidden" data-category="branding">
                     <div class="h-64 overflow-hidden">
                         <img src="images/1.JPG" alt="Tech Startup Branding" class="w-full h-full object-cover hover:scale-105 transition duration-300">
                     </div>
@@ -750,7 +910,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-light">
+    <section id="contact" class="py-20 bg-light pdf-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold font-playfair text-dark mb-4">Get In Touch</h2>
@@ -779,7 +939,7 @@
                             </div>
                             <div>
                                 <h4 class="font-semibold text-dark">Email</h4>
-                                <p class="text-gray-600">mutuzoshema_223019732@stud.ur.ac.rw</p>
+                                <p class="text-gray-600">mutuzoshema@stud.ur.ac.rw</p>
                             </div>
                         </div>
                         
@@ -826,12 +986,12 @@
                 
                 <!-- Contact Form -->
                 <div class="bg-white p-8 rounded-2xl shadow-lg">
-                    <form action="contact.php" method="POST" class="space-y-6">
+                    <form method="POST" class="space-y-6 contact-form" onsubmit="return handleFormSubmit(event)">
                         <!-- CSRF Token (to be generated by PHP) -->
                         <input type="hidden" name="csrf_token" value="">
                         
                         <!-- Honeypot for spam protection -->
-                        <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
+                        <input aria-label="Website" type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
@@ -875,29 +1035,85 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h3 class="text-2xl font-bold font-playfair mb-4">Gabin SHEMA</h3>
-                <p class="text-gray-400 mb-6">Graphic & Visual Designer</p>
-                <div class="flex justify-center space-x-6 mb-8">
-                    <a href="#" class="text-gray-400 hover:text-white transition duration-300" title="Twitter">
-                        <i class="fab fa-twitter text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition duration-300" title="Instagram">
-                        <i class="fab fa-instagram text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition duration-300" title="Dribbble">
-                        <i class="fab fa-dribbble text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition duration-300" title="Behance">
-                        <i class="fab fa-behance text-xl"></i>
-                    </a>
-                </div>
-                <div class="border-t border-gray-800 pt-8">
-                    <p class="text-gray-400">
-                        © 2025 Gabin. All rights reserved. Made with ❤️ and creativity.
+    <footer class="bg-dark text-white py-16 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-0 left-0 w-full h-full bg-repeat opacity-20" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMjAgMjAgMjAtMjBIMjB2MjB6IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9Ii4xIi8+PC9zdmc+');"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand Section -->
+                <div class="md:col-span-2">
+                    <h3 class="text-3xl font-bold font-playfair mb-4 text-gradient">Gabin SHEMA</h3>
+                    <p class="text-gray-400 mb-6 text-lg leading-relaxed">
+                        Passionate graphic and visual designer creating meaningful brand experiences through innovative design solutions. 
+                        Let's bring your vision to life with creativity and precision.
                     </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white hover:bg-primary-dark transition duration-300 hover:scale-110" title="Twitter">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white hover:bg-primary-dark transition duration-300 hover:scale-110" title="Instagram">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white hover:bg-primary-dark transition duration-300 hover:scale-110" title="Dribbble">
+                            <i class="fab fa-dribbble text-lg"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white hover:bg-primary-dark transition duration-300 hover:scale-110" title="Behance">
+                            <i class="fab fa-behance text-lg"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white hover:bg-primary-dark transition duration-300 hover:scale-110" title="LinkedIn">
+                            <i class="fab fa-linkedin text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-xl font-semibold mb-6 text-white">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-primary transition duration-300 flex items-center"><i class="fas fa-arrow-right mr-2 text-sm"></i>Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-primary transition duration-300 flex items-center"><i class="fas fa-arrow-right mr-2 text-sm"></i>About</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-primary transition duration-300 flex items-center"><i class="fas fa-arrow-right mr-2 text-sm"></i>Gallery</a></li>
+                        <li><a href="#portfolio" class="text-gray-400 hover:text-primary transition duration-300 flex items-center"><i class="fas fa-arrow-right mr-2 text-sm"></i>Portfolio</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-primary transition duration-300 flex items-center"><i class="fas fa-arrow-right mr-2 text-sm"></i>Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-xl font-semibold mb-6 text-white">Get in Touch</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-envelope text-primary mt-1"></i>
+                            <span class="text-gray-400">mutuzoshema@stud.ur.ac.rw</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-phone text-primary mt-1"></i>
+                            <span class="text-gray-400">+250 787 814 208</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-primary mt-1"></i>
+                            <span class="text-gray-400">Kigali, Rwanda</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Section -->
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 mb-4 md:mb-0">
+                        © 2025 Gabin SHEMA. All rights reserved. Made with ❤️ and creativity.
+                    </p>
+                    <div class="flex items-center space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-primary transition duration-300">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition duration-300">Terms of Service</a>
+                        <button onclick="scrollToTop()" class="bg-primary text-white p-2 rounded-full hover:bg-primary-dark transition duration-300" title="Back to Top">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -905,6 +1121,157 @@
 
     <!-- JavaScript -->
     <script>
+        // Loading Screen
+        window.addEventListener('load', function() {
+            const loading = document.getElementById('loading');
+            setTimeout(() => {
+                loading.classList.add('fade-out');
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
+        // Notification helper function
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+            const icon = type === 'success' ? 'fa-check' : 'fa-exclamation-triangle';
+            
+            notification.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300`;
+            notification.innerHTML = `<i class="fas ${icon} mr-2"></i>${message}`;
+            
+            document.body.appendChild(notification);
+            
+            // Slide in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Slide out and remove
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+       
+
+        // Create Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const numberOfParticles = 50;
+            
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Form submission handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            
+            // Show loading state
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+            
+            // Simulate form submission (replace with actual form handling)
+            setTimeout(() => {
+                // Reset form
+                form.reset();
+                
+                // Show success message
+                submitButton.textContent = 'Message Sent!';
+                submitButton.style.backgroundColor = '#10b981';
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                    submitButton.style.backgroundColor = '';
+                }, 3000);
+            }, 2000);
+            
+            return false;
+        }
+
+
+
+        // Animated Counters
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // Skill Bars Animation
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-bar');
+            skillBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                setTimeout(() => {
+                    bar.style.width = width;
+                    bar.style.transition = 'width 2s ease-in-out';
+                }, 500);
+            });
+        }
+
+        // Scroll Animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            const windowHeight = window.innerHeight;
+
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Lightbox Functionality
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+        }
+            
         // Mobile Menu Toggle
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -940,6 +1307,10 @@
                     });
                 });
             }
+
+            // Initialize animations
+            createParticles();
+            handleScrollAnimations();
         });
 
         // Portfolio Filter
@@ -959,15 +1330,43 @@
                     button.classList.add('active', 'bg-primary', 'text-white');
                     button.classList.remove('bg-gray-200', 'text-gray-700');
                     
-                    // Filter portfolio items
+                    // Filter portfolio items with animation
                     portfolioItems.forEach(item => {
                         if (filter === 'all' || item.getAttribute('data-category') === filter) {
                             item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateY(0)';
+                            }, 100);
                         } else {
-                            item.style.display = 'none';
+                            item.style.opacity = '0';
+                            item.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
                         }
                     });
                 });
+            });
+        });
+
+        // Lightbox Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const lightboxClose = document.getElementById('lightbox-close');
+            const lightbox = document.getElementById('lightbox');
+            
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+            
+            // Close lightbox with escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
             });
         });
 
@@ -998,18 +1397,98 @@
             });
         });
 
-        // Add scroll effect to navigation
+        // Enhanced scroll effects
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
             if (nav) {
                 if (window.scrollY > 100) {
                     nav.style.background = 'rgba(255, 255, 255, 0.95)';
                     nav.style.backdropFilter = 'blur(10px)';
+                    nav.style.webkitBackdropFilter = 'blur(10px)';
                 } else {
                     nav.style.background = 'rgba(255, 255, 255, 0.25)';
                     nav.style.backdropFilter = 'blur(10px)';
+                    nav.style.webkitBackdropFilter = 'blur(10px)';
                 }
             }
+            
+            // Handle scroll animations
+            handleScrollAnimations();
+        });
+
+        // Intersection Observer for animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        
+                        // Animate counters when about section is visible
+                        if (target.id === 'about') {
+                            setTimeout(animateCounters, 500);
+                            setTimeout(animateSkillBars, 1000);
+                        }
+                        
+                        // Add visible class for fade-in animations
+                        if (target.classList.contains('fade-in')) {
+                            target.classList.add('visible');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all fade-in elements and sections
+            document.querySelectorAll('.fade-in, #about').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Add CSS for transitions
+        document.addEventListener('DOMContentLoaded', function() {
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            portfolioItems.forEach(item => {
+                item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            });
+        });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Enhanced Get in Touch button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const getInTouchButtons = document.querySelectorAll('a[href="#contact"]');
+            getInTouchButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const contactSection = document.getElementById('contact');
+                    if (contactSection) {
+                        contactSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Add a subtle highlight effect
+                        const form = contactSection.querySelector('form');
+                        if (form) {
+                            form.style.transform = 'scale(1.02)';
+                            form.style.transition = 'transform 0.3s ease';
+                            setTimeout(() => {
+                                form.style.transform = 'scale(1)';
+                            }, 300);
+                        }
+                    }
+                });
+            });
         });
     </script>
 </body>

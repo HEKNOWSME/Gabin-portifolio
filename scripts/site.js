@@ -1,4 +1,4 @@
-/* Ndi Artwork gallery. No framework or runtime CDN required. */
+/* Artwork gallery. No framework or runtime CDN required. */
 (() => {
     'use strict';
     document.documentElement.classList.add('js');
@@ -108,7 +108,7 @@
         byId('gallery-empty').hidden = matches.length !== 0;
         byId('gallery-status').textContent = matches.length
             ? 'Showing ' + Math.min(limit, matches.length) + ' of ' + matches.length + ' pieces' + (activeFilter === 'all' && !query ? ' in the collection' : '')
-            : 'No matching Ndi Artwork';
+            : 'No matching artwork';
         queueScroll();
     }
     filterButtons.forEach(button => button.addEventListener('click', () => {
@@ -122,7 +122,7 @@
         limit += 6;
         renderGallery();
         if (firstNew) {
-            firstNew.card.querySelector('[data-Ndi Artwork]').focus({ preventScroll: true });
+            firstNew.card.querySelector('[data-artwork]').focus({ preventScroll: true });
             firstNew.card.scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'nearest' });
         }
     });
@@ -157,7 +157,7 @@
         stage.scrollTop = 0;
         stage.scrollLeft = 0;
     }
-    function renderNdi Artwork() {
+    function renderArtwork() {
         const work = viewing[currentIndex];
         const version = ++imageVersion;
         clearTimeout(imageTimer);
@@ -189,31 +189,31 @@
         imageTimer = setTimeout(() => finish(false), 12000);
         source.src = work.src;
     }
-    function openNdi Artwork(works, index, trigger) {
+    function openArtwork(works, index, trigger) {
         viewing = works;
         currentIndex = index;
         opener = trigger;
         dialog.showModal();
         document.body.classList.add('modal-open');
-        renderNdi Artwork();
+        renderArtwork();
     }
-    function stepNdi Artwork(direction) {
+    function stepArtwork(direction) {
         if (viewing.length < 2) return;
         currentIndex = (currentIndex + direction + viewing.length) % viewing.length;
-        renderNdi Artwork();
+        renderArtwork();
     }
-    cards.forEach(card => card.querySelector('[data-Ndi Artwork]').addEventListener('click', event => {
+    cards.forEach(card => card.querySelector('[data-artwork]').addEventListener('click', event => {
         event.preventDefault();
         const index = matches.findIndex(work => work.card === card);
-        openNdi Artwork([...matches], index, event.currentTarget);
+        openArtwork([...matches], index, event.currentTarget);
     }));
     document.querySelector('[data-hero-art]').addEventListener('click', event => {
         event.preventDefault();
-        openNdi Artwork([{ src: heroImage.getAttribute('src'), alt: heroImage.alt, title: 'Portrait study', category: 'Featured Ndi Artwork' }], 0, event.currentTarget);
+        openArtwork([{ src: heroImage.getAttribute('src'), alt: heroImage.alt, title: 'Portrait study', category: 'Featured artwork' }], 0, event.currentTarget);
     });
     byId('lightbox-close').addEventListener('click', () => dialog.close());
-    previous.addEventListener('click', () => stepNdi Artwork(-1));
-    next.addEventListener('click', () => stepNdi Artwork(1));
+    previous.addEventListener('click', () => stepArtwork(-1));
+    next.addEventListener('click', () => stepArtwork(1));
     zoomButton.addEventListener('click', () => setZoom(!stage.classList.contains('zoomed')));
     preview.addEventListener('click', () => setZoom(!stage.classList.contains('zoomed')));
     dialog.addEventListener('keydown', event => {
@@ -222,7 +222,7 @@
             dialog.close();
         } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
             event.preventDefault();
-            stepNdi Artwork(event.key === 'ArrowLeft' ? -1 : 1);
+            stepArtwork(event.key === 'ArrowLeft' ? -1 : 1);
         }
     });
     dialog.addEventListener('click', event => {
@@ -246,7 +246,7 @@
         if (!touchStart || !event.changedTouches.length) return;
         const dx = event.changedTouches[0].clientX - touchStart.x;
         const dy = event.changedTouches[0].clientY - touchStart.y;
-        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) stepNdi Artwork(dx < 0 ? 1 : -1);
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) stepArtwork(dx < 0 ? 1 : -1);
         touchStart = null;
     }, { passive: true });
     stage.addEventListener('touchcancel', () => { touchStart = null; }, { passive: true });
@@ -260,10 +260,10 @@
         event.preventDefault();
         if (!form.reportValidity()) return;
         const data = new FormData(form);
-        const subject = 'Ndi Artwork enquiry: ' + data.get('service');
-        const body = 'Hello Ndi Artwork,\r\n\r\n' + data.get('message').trim() +
+        const subject = 'Artwork enquiry: ' + data.get('service');
+        const body = 'Hello Artwork,\r\n\r\n' + data.get('message').trim() +
             '\r\n\r\nName: ' + data.get('name').trim() + '\r\nEmail: ' + data.get('email').trim();
-        const mailto = 'mailto:info@ndiNdi Artwork.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        const mailto = 'mailto:mutuzoshema@stud.ur.ac.rw?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         window.location.href = mailto;
         byId('form-status').textContent = 'Your email draft is ready to open. Send it from your email app. If it did not open, use the email address beside this form.';
     });

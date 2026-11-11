@@ -263,7 +263,7 @@
         const subject = 'Ndi_Artwork enquiry: ' + data.get('service');
         const body = 'Hello Ndi Artwork,\r\n\r\n' + data.get('message').trim() +
             '\r\n\r\nName: ' + data.get('name').trim() + '\r\nEmail: ' + data.get('email').trim();
-        const mailto = 'mailto:info@ndiNdi_Artwork.rw?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        const mailto = 'mailto:info@ndiartwork.rw?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         window.location.href = mailto;
         byId('form-status').textContent = 'Your email draft is ready to open. Send it from your email app. If it did not open, use the email address beside this form.';
     });

@@ -1,4 +1,4 @@
-/* Artwork: a responsive, locally styled gallery. */
+/* NdiArtwork: a responsive, locally styled gallery. */
 :root{--paper:#f5f2eb;--white:#fffdf8;--ink:#252820;--muted:#696b61;--line:#d9d9cf;--accent:#a84e32;--sage:#e8ebdf;--serif:"Playfair Display",Georgia,serif;--sans:"DM Sans",Arial,sans-serif}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:100px}
